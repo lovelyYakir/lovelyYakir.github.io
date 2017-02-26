@@ -6,30 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://youjian.com">
-  <title>Lovely Android</title>
+  <title>Android中WebView使用详解 | Lovely Android</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="&amp;ensp;
-Android中实现WebView与Javascript进行交互&amp;ensp;&amp;ensp;在Android系统中内嵌的WebKit，这是一个浏览器内核，它帮助着我们可以浏览网页。在实际开发中，如果你想让你的App能够访问网页，那就需要用到WebView这个控件。
-简单使用我们通过在Xml中引入这个控件，之后调用load()这个方法，在这个方法中传入一个Url就能正常访问一个网页了。
-&amp;">
+  <meta name="description" content="&amp;ensp;&amp;ensp;在Android系统中内嵌的WebKit，这是一个浏览器内核，它帮助着我们可以浏览网页。在实际开发中，如果你想让你的App能够访问网页，那就需要用到WebView这个控件。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Lovely Android">
+<meta property="og:title" content="Android中WebView使用详解">
 <meta property="og:url" content="http://youjian.com/2017/02/26/WebView/index.html">
 <meta property="og:site_name" content="Lovely Android">
-<meta property="og:description" content="&amp;ensp;
-Android中实现WebView与Javascript进行交互&amp;ensp;&amp;ensp;在Android系统中内嵌的WebKit，这是一个浏览器内核，它帮助着我们可以浏览网页。在实际开发中，如果你想让你的App能够访问网页，那就需要用到WebView这个控件。
-简单使用我们通过在Xml中引入这个控件，之后调用load()这个方法，在这个方法中传入一个Url就能正常访问一个网页了。
-&amp;">
+<meta property="og:description" content="&amp;ensp;&amp;ensp;在Android系统中内嵌的WebKit，这是一个浏览器内核，它帮助着我们可以浏览网页。在实际开发中，如果你想让你的App能够访问网页，那就需要用到WebView这个控件。">
 <meta property="og:image" content="http://i.imgur.com/hnj7RX1.png">
 <meta property="og:image" content="http://i.imgur.com/9OxLGWj.gif">
 <meta property="og:image" content="http://i.imgur.com/42Ajr6m.gif">
-<meta property="og:updated_time" content="2017-02-26T10:51:17.796Z">
+<meta property="og:updated_time" content="2017-02-26T14:14:10.150Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Lovely Android">
-<meta name="twitter:description" content="&amp;ensp;
-Android中实现WebView与Javascript进行交互&amp;ensp;&amp;ensp;在Android系统中内嵌的WebKit，这是一个浏览器内核，它帮助着我们可以浏览网页。在实际开发中，如果你想让你的App能够访问网页，那就需要用到WebView这个控件。
-简单使用我们通过在Xml中引入这个控件，之后调用load()这个方法，在这个方法中传入一个Url就能正常访问一个网页了。
-&amp;">
+<meta name="twitter:title" content="Android中WebView使用详解">
+<meta name="twitter:description" content="&amp;ensp;&amp;ensp;在Android系统中内嵌的WebKit，这是一个浏览器内核，它帮助着我们可以浏览网页。在实际开发中，如果你想让你的App能够访问网页，那就需要用到WebView这个控件。">
 <meta name="twitter:image" content="http://i.imgur.com/hnj7RX1.png">
   
     <link rel="alternative" href="/atom.xml" title="Lovely Android" type="application/atom+xml">
@@ -165,10 +156,24 @@ Android中实现WebView与Javascript进行交互&amp;ensp;&amp;ensp;在Android�
             <article id="post-WebView" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android中WebView使用详解
+    </h1>
+  
+
+        
+        <a href="/2017/02/26/WebView/" class="archive-article-date">
+  	<time datetime="2017-02-26T10:08:04.220Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-26</time>
+</a>
+        
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <p>&ensp;</p>
-<h1 id="Android中实现WebView与Javascript进行交互"><a href="#Android中实现WebView与Javascript进行交互" class="headerlink" title="Android中实现WebView与Javascript进行交互"></a>Android中实现WebView与Javascript进行交互</h1><p>&ensp;&ensp;在Android系统中内嵌的WebKit，这是一个浏览器内核，它帮助着我们可以浏览网页。在实际开发中，如果你想让你的App能够访问网页，那就需要用到WebView这个控件。</p>
+        <p>&ensp;&ensp;在Android系统中内嵌的WebKit，这是一个浏览器内核，它帮助着我们可以浏览网页。在实际开发中，如果你想让你的App能够访问网页，那就需要用到WebView这个控件。<br><a id="more"></a></p>
 <h2 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h2><p>我们通过在Xml中引入这个控件，之后调用load()这个方法，在这个方法中传入一个Url就能正常访问一个网页了。</p>
 <pre><code>&lt;WebView
 android:layout_width=&quot;match_parent&quot;
@@ -208,7 +213,7 @@ webView.loadUrl(&quot;https://lovelyyakir.github.io&quot;);
 <p>  <code>$(&quot;#test1&quot;).click(function(e){window.injs.takeFrontIDCardCamera();});</code><br>  <code>$(&quot;#test2&quot;).click(function(e){window.injs.takeBackIDCardCamera();});</code><br>  <code>$(&quot;#test3&quot;).click(function(e){window.injs.takeFaceCamera();});</code></p>
 </li>
 </ul>
-<p>这里表示三个Javascript点击事件，window.injs.takeFaceCamera();这行代码中window表示窗口，injs表示作用域紧跟着的就是方法名了。我们需要让WebView允许和Javascript进行交互，并且绑定作用域。  </p>
+<p>这里表示三个Javascript点击事件，window.injs.takeFaceCamera();这行代码中window表示窗口，injs表示作用域，紧跟着的就是方法名了。我们需要让WebView允许和Javascript进行交互，并且绑定作用域。  </p>
 <pre><code>webView.getSettings().setJavaScriptEnabled(true);
 webView.addJavascriptInterface(this,&quot;injs&quot;); 
 </code></pre><p>最后重写Javascript方法  </p>
@@ -249,7 +254,7 @@ function jhjfacejs(face){
 
  alert(face);
 }
-</code></pre><p>调用无参的方法是只需要在webview的load方法中写入javascript:你的方法()。像这样:  </p>
+</code></pre><p>调用无参的方法时只需要在webview的load方法中写入javascript:你的方法()。像这样:  </p>
 <pre><code>webView.loadUrl(&quot;javascript:jhjcardfontjs()&quot;);  
 </code></pre><p>如果有参数要注意，脚本中会有转义符需要处理一下再传入</p>
 <pre><code>String var=&quot;&quot;;
@@ -377,7 +382,25 @@ webView.loadUrl(&quot;javascript:jhjcardfontjs(&apos;&quot; + var + &quot;&apos;
 
 
   
-    <div class="duoshuo"></div>
+  <div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="WebView" data-title="Android中WebView使用详解" data-url="http://youjian.com/2017/02/26/WebView/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"lovelyyakir"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
   
 
 
