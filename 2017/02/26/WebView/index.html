@@ -6,17 +6,31 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://youjian.com">
-  <title>Archives: 2017 | Lovely Android</title>
+  <title>Lovely Android</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="欢迎来到我的个人博客">
-<meta property="og:type" content="website">
+  <meta name="description" content="&amp;ensp;
+Android中实现WebView与Javascript进行交互&amp;ensp;&amp;ensp;在Android系统中内嵌的WebKit，这是一个浏览器内核，它帮助着我们可以浏览网页。在实际开发中，如果你想让你的App能够访问网页，那就需要用到WebView这个控件。
+简单使用我们通过在Xml中引入这个控件，之后调用load()这个方法，在这个方法中传入一个Url就能正常访问一个网页了。
+&amp;">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Lovely Android">
-<meta property="og:url" content="http://youjian.com/archives/2017/index.html">
+<meta property="og:url" content="http://youjian.com/2017/02/26/WebView/index.html">
 <meta property="og:site_name" content="Lovely Android">
-<meta property="og:description" content="欢迎来到我的个人博客">
+<meta property="og:description" content="&amp;ensp;
+Android中实现WebView与Javascript进行交互&amp;ensp;&amp;ensp;在Android系统中内嵌的WebKit，这是一个浏览器内核，它帮助着我们可以浏览网页。在实际开发中，如果你想让你的App能够访问网页，那就需要用到WebView这个控件。
+简单使用我们通过在Xml中引入这个控件，之后调用load()这个方法，在这个方法中传入一个Url就能正常访问一个网页了。
+&amp;">
+<meta property="og:image" content="http://i.imgur.com/hnj7RX1.png">
+<meta property="og:image" content="http://i.imgur.com/9OxLGWj.gif">
+<meta property="og:image" content="http://i.imgur.com/42Ajr6m.gif">
+<meta property="og:updated_time" content="2017-02-26T10:51:17.796Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Lovely Android">
-<meta name="twitter:description" content="欢迎来到我的个人博客">
+<meta name="twitter:description" content="&amp;ensp;
+Android中实现WebView与Javascript进行交互&amp;ensp;&amp;ensp;在Android系统中内嵌的WebKit，这是一个浏览器内核，它帮助着我们可以浏览网页。在实际开发中，如果你想让你的App能够访问网页，那就需要用到WebView这个控件。
+简单使用我们通过在Xml中引入这个控件，之后调用load()这个方法，在这个方法中传入一个Url就能正常访问一个网页了。
+&amp;">
+<meta name="twitter:image" content="http://i.imgur.com/hnj7RX1.png">
   
     <link rel="alternative" href="/atom.xml" title="Lovely Android" type="application/atom+xml">
   
@@ -148,70 +162,225 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-WebView" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>&ensp;</p>
+<h1 id="Android中实现WebView与Javascript进行交互"><a href="#Android中实现WebView与Javascript进行交互" class="headerlink" title="Android中实现WebView与Javascript进行交互"></a>Android中实现WebView与Javascript进行交互</h1><p>&ensp;&ensp;在Android系统中内嵌的WebKit，这是一个浏览器内核，它帮助着我们可以浏览网页。在实际开发中，如果你想让你的App能够访问网页，那就需要用到WebView这个控件。</p>
+<h2 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h2><p>我们通过在Xml中引入这个控件，之后调用load()这个方法，在这个方法中传入一个Url就能正常访问一个网页了。</p>
+<pre><code>&lt;WebView
+android:layout_width=&quot;match_parent&quot;
+android:layout_height=&quot;match_parent&quot;
+android:id=&quot;@+id/web&quot;&gt;
+</code></pre><p>代码：</p>
+<pre><code>WebView webView = (WebView) findViewById(R.id.web);
+webView.loadUrl(&quot;https://lovelyyakir.github.io&quot;);
+</code></pre><p>当然不要忘了添加连网权限：</p>
+<pre><code>&lt;uses-permission android:name=&quot;android.permission.INTERNET&quot;/&gt;
+</code></pre><p>运行在手机中</p>
+<p><img src="http://i.imgur.com/hnj7RX1.png" alt=""></p>
+<p>当然你一定不会满足于只能显示个网页那么简单。</p>
+<h2 id="进阶"><a href="#进阶" class="headerlink" title="进阶"></a>进阶</h2><p>&ensp;&ensp;在实际使用中你会发现，有时候我们需要点击网页中的某个链接进行网页跳转，而系统会默认加载自带浏览器，而不是我们的WebView。如果你想要让WebView跳转那又该怎么做呢？<br>&ensp;&ensp; 其实很简单，我们只需要给WebView设置一个webClient，并且重写里面的shouldOverrideUrlLoading()就能很简单的实现啦。</p>
+<pre><code>webView.setWebViewClient(new WebViewClient(){
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url);
+            return true;
+        }
+    });
+</code></pre><p>&ensp;&ensp;谷歌工程师给我们提供了两个参数，我们需要调用load方法闯入url，并且需要在返回值中返回true。允许在本WebView中进行跳转。 </p>
+<p>&ensp;&ensp;当我们点击返回，你会发现程序退出了。当然这不是我们想要的结果。所以我们需要在Activity中重写onKeyDown(),<br>进行判断，当我们的页面可以返回时点击返回返回上一个界面，无法返回执行其他或者退出。</p>
+<pre><code>  @Override
+  public boolean onKeyDown(int keyCode, KeyEvent event) {
+    if (webView.canGoBack()&amp;&amp;keyCode==KeyEvent.KEYCODE_BACK) {
+        webView.goBack();
+        return true;
+    }
+    return super.onKeyDown(keyCode,event);
+}  
+</code></pre><p>便是这个效果  </p>
+<p><img src="http://i.imgur.com/9OxLGWj.gif" alt="">  </p>
+<h2 id="高阶"><a href="#高阶" class="headerlink" title="高阶"></a>高阶</h2><p>&ensp;&ensp;在实际开发中，调用webview，我们希望能与其他其他网页进行交互。非原生界面调用原生方法，原生界面调用非原生方法。（WebView与Javascript相互调用）  </p>
+<ul>
+<li><p>Javascript调用Java原生代码<br>&ensp;我们先看一段Javascript的代码  </p>
+<p>  <code>$(&quot;#test1&quot;).click(function(e){window.injs.takeFrontIDCardCamera();});</code><br>  <code>$(&quot;#test2&quot;).click(function(e){window.injs.takeBackIDCardCamera();});</code><br>  <code>$(&quot;#test3&quot;).click(function(e){window.injs.takeFaceCamera();});</code></p>
+</li>
+</ul>
+<p>这里表示三个Javascript点击事件，window.injs.takeFaceCamera();这行代码中window表示窗口，injs表示作用域紧跟着的就是方法名了。我们需要让WebView允许和Javascript进行交互，并且绑定作用域。  </p>
+<pre><code>webView.getSettings().setJavaScriptEnabled(true);
+webView.addJavascriptInterface(this,&quot;injs&quot;); 
+</code></pre><p>最后重写Javascript方法  </p>
+<pre><code> @JavascriptInterface
+ public void takeFrontIDCardCamera() {
+
+     Toast.makeText(this,&quot;Native get takeFrontIDCardCamera&quot;,Toast.LENGTH_SHORT).show();
+  }
+
+@JavascriptInterface
+public void takeBackIDCardCamera() {
+
+    Toast.makeText(this,&quot;Native get takeBackIDCardCamera&quot;,Toast.LENGTH_SHORT).show();
+ }
+
+@JavascriptInterface
+public void takeFaceCamera() {
+
+   Toast.makeText(this,&quot;Native get takeFaceCamera&quot;,Toast.LENGTH_SHORT).show();
+ }  
+</code></pre><p>Javascript调用原生方法时弹出一个土司验证  </p>
+<p>  <img src="http://i.imgur.com/42Ajr6m.gif" alt="">  </p>
+<ul>
+<li>原生界面调用Javascript  </li>
+</ul>
+<p>&ensp;这是Javascript本地方法 </p>
+<pre><code>function  jhjcardfontjs(font){
+
+    alert(font);
+}
+
+function  jhjcardbackjs(back){
+
+   alert(back);
+}
+
+function jhjfacejs(face){
+
+ alert(face);
+}
+</code></pre><p>调用无参的方法是只需要在webview的load方法中写入javascript:你的方法()。像这样:  </p>
+<pre><code>webView.loadUrl(&quot;javascript:jhjcardfontjs()&quot;);  
+</code></pre><p>如果有参数要注意，脚本中会有转义符需要处理一下再传入</p>
+<pre><code>String var=&quot;&quot;;
+var=var.replaceAll(&quot;\\\\&quot;, &quot;\\\\\\\\&quot;);
+webView.loadUrl(&quot;javascript:jhjcardfontjs(&apos;&quot; + var + &quot;&apos;)&quot;); 
+</code></pre><ul>
+<li><p>其他  </p>
+<p>&ensp;如果你在JavaScript中调用原生方法修改Ui,你需要确保这个方法执行在主线程。这是由于JavaBridge并不在主线程中。（hander,runOnUiThread….）</p>
+</li>
+</ul>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>扫一扫请我喝杯可乐<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://images2015.cnblogs.com/blog/900629/201702/900629-20170224031101648-1211460600.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://images2015.cnblogs.com/blog/900629/201702/900629-20170224031209851-1051353473.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/02/26/WebView/" class="archive-article-date">
-  	<time datetime="2017-02-26T10:08:04.220Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-26</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://youjian.com/2017/02/26/WebView/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/02/24/hello-world/" class="archive-article-date">
-  	<time datetime="2017-02-23T16:47:48.095Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-24</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/02/24/hello-world/">很高兴与你相遇</a>
-    </h1>
+  
+    <a href="/2017/02/24/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">很高兴与你相遇</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+  
+    <div class="duoshuo"></div>
   
 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -234,8 +403,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
